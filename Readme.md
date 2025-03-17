@@ -178,6 +178,108 @@ int main(){
   return 0;
 }
 ```
+### **10) Find all symmetric pairs in an array**
+
+```cpp
+void find(vector<pair<int, int>> &arr){
+    unordered_map<int, int> mpp;
+    for(auto & i:arr){
+        int first = i.first, second = i.second;
+        if(mpp.find(second) != mpp.end() && mpp[second] == first ){
+            cout<<i.first<< " " << i.second<<endl;
+        } else{
+            mpp[first] = second; // normal insertion
+        }
+    }
+}
+```
+### **11) Maximum product subarray**
+
+```cpp
+int maximumProductSubarray(int* arr, int n){
+    int maxi=0;
+    for(int i=0; i <n; i++){
+        int mul =1;
+        for(int j=0; j<i; j++){
+            mul *= arr[j];
+        }
+        maxi = max(maxi, mul);
+    }
+    return maxi;
+}                       
+```
+### **12) Replacing with rank**
+
+```cpp
+vector<int> arrayRankTransform(vector<int>& arr) {
+        int rank=1;
+        unordered_map<int, int>mpp;
+        vector<int> sorted(arr.begin(), arr.end());
+        sort(sorted.begin(), sorted.end());
+        for(int i=0; i<arr.size(); i++){
+            if(mpp.empty()){ 
+                mpp[sorted[i]] = rank;
+                rank++;
+                }
+            if(mpp.find(sorted[i]) == mpp.end()){
+                mpp[sorted[i]] = rank;
+                rank++;
+            }
+        }
+        vector<int>ans(arr.size());
+        for(int i=0; i<arr.size(); i++){
+            ans[i] = mpp[arr[i]];
+        }
+        return ans;
+}                      
+```
+### **13) Equilibrium point**
+
+```cpp
+int pivotIndex(vector<int>& arr) {
+        int n = arr.size();
+        vector<int> sum(n);
+        int total = 0;
+        for(int i=0; i<n; i++){
+            total += arr[i];
+            sum[i] = total;
+        }
+        for(int i=0; i<n; i++){
+            int leftSum = sum[i] - arr[i];
+            int rightSum = total - sum[i];
+            if(leftSum == rightSum){
+                return i;
+            }
+        }
+        return -1;
+}                     
+```
+### **14) Is the array a subset or not**
+
+```cpp
+bool isSubset(vector<int>& arr1, vector<int>& arr2) {
+    unordered_set<int> s;
+    for (int num : arr1) {
+        s.insert(num);
+    }
+
+    for (int num : arr2) {
+        if (s.find(num) == s.end()) {
+            return false;
+        }
+    }
+    return true;
+}                   
+```
+### **15) HCF**
+
+```cpp
+int findHCF(int a, int b){
+    if(b == 0) return a;
+    return findHCF(b, a%b);
+}                   
+```
+
 
 
 
